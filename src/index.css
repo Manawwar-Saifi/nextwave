@@ -1,0 +1,66 @@
+@import "tailwindcss";
+
+
+*{
+  box-sizing: border-box;
+  
+}
+body{
+  overflow-x: hidden;
+}
+
+/* Swiper navigation & pagination overrides */
+.swiper-button-next,
+.swiper-button-prev {
+  color: #ffffff !important;
+  background: rgba(0, 0, 0, 0.35);
+  width: 44px !important;
+  height: 44px !important;
+  border-radius: 50%;
+  transition: background 0.3s;
+}
+.swiper-button-next:hover,
+.swiper-button-prev:hover {
+  background: rgba(0, 0, 0, 0.6);
+}
+.swiper-button-next::after,
+.swiper-button-prev::after {
+  font-size: 18px !important;
+}
+.swiper-pagination-bullet {
+  background: #ffffff !important;
+  opacity: 0.4;
+}
+.swiper-pagination-bullet-active {
+  opacity: 1;
+  background: #ffffff !important;
+}
+
+/* Hero swiper */
+.hero-swiper {
+  --swiper-pagination-bottom: 28px;
+}
+.hero-swiper .swiper-pagination {
+  text-align: left;
+  padding-left: 1.5rem;
+}
+@media (min-width: 768px) {
+  .hero-swiper .swiper-pagination {
+    padding-left: 4rem;
+  }
+}
+
+/* Category section — scoped black bullets */
+.category-swiper .swiper-pagination-bullet {
+  background: #000000 !important;
+  opacity: 0.3;
+}
+.category-swiper .swiper-pagination-bullet-active {
+  background: #000000 !important;
+  opacity: 1;
+}
+
+/* Marquee */
+.marquee-track {
+  will-change: transform;
+}
