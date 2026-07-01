@@ -33,7 +33,7 @@ const Footer = () => (
           <img
             src={vipinLogo}
             alt="Next Wave Technology"
-            style={{ width: '81%', height: 'auto', background: 'white', padding: '10px' }}
+            style={{ width: '81%', height: 'auto' }}
           />
         </div>
         <p className="text-gray-400 text-sm leading-relaxed mb-6">

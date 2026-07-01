@@ -81,7 +81,7 @@ const HowToOrder = () => (
       </div>
 
       {/* Steps */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-0 relative">
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-0 relative">
         {/* Connector line — desktop only */}
         <div className="hidden lg:block absolute top-10 left-[12.5%] right-[12.5%] h-px z-0" style={{ background: 'rgba(27,160,225,0.2)' }} />
 
