@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Pagination } from "swiper/modules";
+import { Pagination, Autoplay } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/pagination";
 import { productData, featuredSlugs } from "../data/products";
@@ -43,40 +43,64 @@ const ICONS = {
 /* ── Product Card ─────────────────────────────────────────────────────────── */
 const ProductCard = ({ model, name, spec, image, categoryHeading, badgeIcon }) => (
   <div
-    className="bg-white border border-gray-100 hover:border-gray-300 hover:shadow-md transition-all duration-300 cursor-pointer group flex flex-col"
-    style={{ fontFamily: "'Poppins', sans-serif" }}
+    className="group relative flex flex-col h-full bg-white transition-all duration-300 hover:-translate-y-1 hover:z-10"
+    style={{
+      fontFamily: "'Poppins', sans-serif",
+      boxShadow: '0 2px 12px rgba(0,0,0,0.07)',
+      border: '1px solid #f0f0f0',
+    }}
   >
-    {/* Image area */}
-    <div className="flex items-center justify-center overflow-hidden bg-white" style={{ height: "210px" }}>
+    {/* Category pill — absolute to card, z-10 so it sits above image */}
+    <span
+      className="absolute top-2 left-2 z-10 text-[9px] font-bold tracking-widest uppercase px-2 py-0.5"
+      style={{ background: 'var(--nw-navy)', color: '#fff', fontFamily: "'Montserrat', sans-serif" }}
+    >
+      {categoryHeading}
+    </span>
+
+    {/* Image area — overflow-hidden keeps scale effect from bleeding into body */}
+    <div
+      className="flex items-center justify-center overflow-hidden shrink-0"
+      style={{ height: "170px", background: '#f7f7f7' }}
+    >
       <img
         src={image}
         alt={name}
-        className="h-full w-full object-contain p-4 drop-shadow-md group-hover:scale-105 transition-transform duration-300"
+        className="h-full w-full object-contain p-3 group-hover:scale-105 transition-transform duration-300"
       />
     </div>
 
-    {/* Spec badge — full width, pinned to bottom of image */}
-    <div className="flex items-center gap-1.5 bg-black text-white px-3 py-2">
-      {ICONS[badgeIcon] || ICONS.zap}
-      <span className="text-xs font-semibold tracking-wide" style={{ fontFamily: "'Montserrat', sans-serif" }}>
-        {spec}
-      </span>
-    </div>
-
     {/* Card body */}
-    <div className="p-3 flex flex-col flex-1">
-      <p className="text-xs text-gray-400 mb-1.5">{categoryHeading}</p>
-      <div className="border-t border-dashed border-gray-200 mb-2" />
-      <p className="text-xs font-semibold text-black leading-snug mb-4 flex-1" style={{ fontFamily: "'Montserrat', sans-serif" }}>
+    <div className="flex flex-col flex-1 px-3 pt-3 pb-3">
+      {/* Spec badge */}
+      <div
+        className="inline-flex items-center gap-1 self-start px-2 py-0.5 mb-2 rounded-sm"
+        style={{ background: '#EBF5FC', color: 'var(--nw-blue)' }}
+      >
+        {ICONS[badgeIcon] || ICONS.zap}
+        <span className="text-[9px] font-bold tracking-wide" style={{ fontFamily: "'Montserrat', sans-serif" }}>
+          {spec}
+        </span>
+      </div>
+
+      {/* Name */}
+      <p
+        className="text-[11px] font-semibold text-black leading-snug flex-1 mb-3"
+        style={{ fontFamily: "'Montserrat', sans-serif" }}
+      >
         {model} – {name}
       </p>
 
+      {/* CTA */}
       <Link
         to={`/categories/${Object.keys(productData).find(k => productData[k].heading === categoryHeading)}`}
-        className="block w-full bg-black text-white text-xs font-bold tracking-widest uppercase py-2.5 text-center hover:bg-gray-800 active:scale-95 transition-all duration-200"
-        style={{ fontFamily: "'Montserrat', sans-serif" }}
+        className="flex items-center justify-center gap-1.5 w-full text-white text-[10px] font-bold tracking-widest uppercase py-2 text-center hover:opacity-90 active:scale-95 transition-all duration-200"
+        style={{ background: 'var(--nw-orange)', fontFamily: "'Montserrat', sans-serif" }}
       >
-        VIEW MORE
+        View More
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="w-3 h-3">
+          <path d="M5 12h14M12 5l7 7-7 7" />
+        </svg>
       </Link>
     </div>
   </div>
@@ -99,8 +123,8 @@ const CategoryBlock = ({ slug }) => {
         </h2>
         <Link
           to={`/categories/${slug}`}
-          className="text-sm font-semibold text-black underline underline-offset-4 hover:text-gray-500 transition-colors duration-200"
-          style={{ fontFamily: "'Montserrat', sans-serif" }}
+          className="text-sm font-semibold underline underline-offset-4 hover:opacity-80 transition-opacity duration-200"
+          style={{ color: 'var(--nw-blue)', fontFamily: "'Montserrat', sans-serif" }}
         >
           View All
         </Link>
@@ -108,19 +132,23 @@ const CategoryBlock = ({ slug }) => {
 
       {/* Swiper */}
       <Swiper
-        modules={[Pagination]}
+        modules={[Pagination, Autoplay]}
         pagination={{ clickable: true }}
+        loop={true}
+        autoplay={{ delay: 2500, disableOnInteraction: false }}
         slidesPerView={2}
         spaceBetween={16}
+        speed={1500}
         breakpoints={{
-          640:  { slidesPerView: 3, spaceBetween: 20 },
+            0:  { slidesPerView: 1.25, spaceBetween: 20 },
+          640:  { slidesPerView: 1.25, spaceBetween: 20 },
           1024: { slidesPerView: 5, spaceBetween: 24 },
         }}
         className="category-swiper"
         style={{ paddingBottom: "44px" }}
       >
         {cat.items.map((product) => (
-          <SwiperSlide key={product.model}>
+          <SwiperSlide key={product.model} style={{ height: 'auto' }}>
             <ProductCard
               {...product}
               categoryHeading={cat.heading}
@@ -147,11 +175,14 @@ const FeaturedProducts = () => (
           Our Products
         </p>
         <h2
-          className="text-3xl md:text-4xl font-black text-black uppercase tracking-tight"
+          className="text-3xl md:text-4xl font-black text-black uppercase tracking-tight mb-4"
           style={{ fontFamily: "'Lato', sans-serif" }}
         >
           Featured Products
         </h2>
+        <div className="flex justify-center">
+          <div className="w-12 h-0.5" style={{ background: 'var(--nw-orange)' }} />
+        </div>
       </div>
 
       {featuredSlugs.map((slug) => (

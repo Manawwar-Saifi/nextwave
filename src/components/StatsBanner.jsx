@@ -51,7 +51,7 @@ const stats = [
 ];
 
 const StatsBanner = () => (
-  <section className="bg-black" style={{ fontFamily: "'Poppins', sans-serif" }}>
+  <section className="" style={{ background: 'var(--nw-navy)', fontFamily: "'Poppins', sans-serif" }}>
     <div className="max-w-6xl mx-auto px-5 md:px-10 py-14 grid grid-cols-2 md:grid-cols-4">
       {stats.map(({ value, label, sub, icon }, i) => (
         <div
@@ -64,12 +64,12 @@ const StatsBanner = () => (
           `}
         >
           {/* Icon */}
-          <div className="text-gray-500 mb-4">{icon}</div>
+          <div className="mb-4" style={{ color: 'var(--nw-blue)' }}>{icon}</div>
 
           {/* Number */}
           <p
-            className="text-4xl md:text-5xl font-black text-white mb-1 leading-none"
-            style={{ fontFamily: "'Montserrat', sans-serif" }}
+            className="text-4xl md:text-5xl font-black mb-1 leading-none"
+            style={{ fontFamily: "'Montserrat', sans-serif", color: 'var(--nw-orange)' }}
           >
             {value}
           </p>

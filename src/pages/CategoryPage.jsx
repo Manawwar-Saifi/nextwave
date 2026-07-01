@@ -1,10 +1,11 @@
 import React from "react";
 import { useParams, Link } from "react-router-dom";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Pagination } from "swiper/modules";
+import { Pagination, Autoplay } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/pagination";
 import { productData } from "../data/products";
+import { delay } from "framer-motion";
 
 /* ── Badge icons ─────────────────────────────────────────────────────────── */
 const HeadphoneIcon = () => (
@@ -35,9 +36,9 @@ const HeartIcon = () => (
 
 const BADGE_ICONS = {
   headphone: <HeadphoneIcon />,
-  battery:   <BatteryIcon />,
-  zap:       <ZapIcon />,
-  heart:     <HeartIcon />,
+  battery: <BatteryIcon />,
+  zap: <ZapIcon />,
+  heart: <HeartIcon />,
 };
 
 /* ── Product Card ─────────────────────────────────────────────────────────── */
@@ -55,8 +56,8 @@ const ProductCard = ({ model, name, spec, image, categoryHeading, badgeIcon }) =
       />
     </div>
 
-    {/* Spec badge — full width, pinned to bottom of image */}
-    <div className="flex items-center gap-1.5 bg-black text-white px-3 py-2">
+    {/* Spec badge */}
+    <div className="flex items-center gap-1.5 text-white px-3 py-2" style={{ background: 'var(--nw-navy)' }}>
       {BADGE_ICONS[badgeIcon] || BADGE_ICONS.zap}
       <span className="text-xs font-semibold tracking-wide" style={{ fontFamily: "'Montserrat', sans-serif" }}>
         {spec}
@@ -72,8 +73,8 @@ const ProductCard = ({ model, name, spec, image, categoryHeading, badgeIcon }) =
       </p>
 
       <button
-        className="w-full bg-black text-white text-xs font-bold tracking-widest uppercase py-2.5 hover:bg-gray-800 active:scale-95 transition-all duration-200"
-        style={{ fontFamily: "'Montserrat', sans-serif" }}
+        className="w-full text-white text-xs font-bold tracking-widest uppercase py-2.5 hover:opacity-90 active:scale-95 transition-all duration-200"
+        style={{ background: 'var(--nw-orange)', fontFamily: "'Montserrat', sans-serif" }}
       >
         VIEW MORE
       </button>
@@ -91,7 +92,7 @@ const CategoryPage = () => {
       <main className="min-h-screen flex items-center justify-center bg-white">
         <div className="text-center">
           <p className="text-gray-500 text-sm mb-4">Category not found.</p>
-          <Link to="/" className="text-black underline text-sm">Back to Home</Link>
+          <Link to="/" className="text-sm underline" style={{ color: 'var(--nw-blue)' }}>Back to Home</Link>
         </div>
       </main>
     );
@@ -109,28 +110,29 @@ const CategoryPage = () => {
           {/* Left — Text */}
           <div className="w-full md:w-1/2 py-16 relative z-10">
             <p
-              className="text-xs tracking-[0.25em] uppercase text-gray-400 mb-4"
-              style={{ fontFamily: "'Poppins', sans-serif" }}
+              className="text-xs tracking-[0.25em] uppercase mb-4"
+              style={{ fontFamily: "'Poppins', sans-serif", color: 'var(--nw-blue)' }}
             >
               {meta.tag}
             </p>
             <h1
-              className="text-5xl md:text-6xl font-black text-black mb-5 leading-tight"
+              className="text-5xl md:text-6xl font-black text-black mb-4 leading-tight"
               style={{ fontFamily: "'Lato', sans-serif" }}
             >
               {meta.heroHeading.split("\n").map((line, i) => (
                 <span key={i} className="block">{line}</span>
               ))}
             </h1>
+            <div className="w-10 h-0.5 mb-5" style={{ background: 'var(--nw-orange)' }} />
             <p className="text-gray-500 text-sm leading-relaxed mb-8 max-w-md">
               {meta.description}
             </p>
             <Link
               to="/contact"
-              className="inline-flex items-center gap-2 bg-black text-white text-xs font-bold tracking-widest uppercase px-7 py-3 hover:bg-gray-800 active:scale-95 transition-all duration-200"
-              style={{ fontFamily: "'Montserrat', sans-serif" }}
+              className="inline-flex items-center gap-2 text-white text-xs font-bold tracking-widest uppercase px-7 py-3 hover:opacity-90 active:scale-95 transition-all duration-200"
+              style={{ background: 'var(--nw-orange)', fontFamily: "'Montserrat', sans-serif" }}
             >
-              VIEW STORE
+              GET A QUOTE →
             </Link>
           </div>
 
@@ -151,8 +153,8 @@ const CategoryPage = () => {
       <section className="py-12 px-5 md:px-10 bg-gray-50 border-b border-gray-100">
         <div className="max-w-6xl mx-auto">
           <h2
-            className="text-xs font-bold uppercase tracking-widest text-gray-400 mb-6"
-            style={{ fontFamily: "'Montserrat', sans-serif" }}
+            className="text-xs font-bold uppercase tracking-widest mb-6"
+            style={{ fontFamily: "'Montserrat', sans-serif", color: 'var(--nw-blue)' }}
           >
             Key Features
           </h2>
@@ -160,7 +162,7 @@ const CategoryPage = () => {
             {meta.features.map((feat) => (
               <div
                 key={feat}
-                className="bg-white border border-gray-200 hover:border-black transition-colors duration-200 px-4 py-3 text-center"
+                className="bg-white border border-gray-200 hover:border-(--nw-blue) transition-colors duration-200 px-4 py-3 text-center"
               >
                 <span
                   className="text-xs font-semibold text-gray-700 leading-snug"
@@ -186,20 +188,22 @@ const CategoryPage = () => {
             </h2>
             <Link
               to="/contact"
-              className="text-sm font-semibold text-black underline underline-offset-4 hover:text-gray-600 transition-colors duration-200"
-              style={{ fontFamily: "'Montserrat', sans-serif" }}
+              className="text-sm font-semibold underline underline-offset-4 hover:opacity-75 transition-opacity duration-200"
+              style={{ color: 'var(--nw-blue)', fontFamily: "'Montserrat', sans-serif" }}
             >
               View All
             </Link>
           </div>
 
           <Swiper
-            modules={[Pagination]}
+            modules={[Pagination, Autoplay]}
             pagination={{ clickable: true }}
             slidesPerView={2}
             spaceBetween={16}
+            loop={true}
+            autoplay={{ delay: 2500, disableOnInteraction: false }}
             breakpoints={{
-              640:  { slidesPerView: 3, spaceBetween: 20 },
+              640: { slidesPerView: 3, spaceBetween: 20 },
               1024: { slidesPerView: 5, spaceBetween: 24 },
             }}
             className="category-swiper"
@@ -219,29 +223,59 @@ const CategoryPage = () => {
       </section>
 
       {/* ── CTA ── */}
-      <section className="bg-black text-white py-14 px-5 md:px-10 text-center">
-        <p
-          className="text-xs tracking-[0.3em] uppercase text-gray-400 mb-3"
-          style={{ fontFamily: "'Montserrat', sans-serif" }}
+      <section className="py-16 px-5 md:px-10 bg-white">
+        <div
+          className="relative overflow-hidden text-center py-16 px-6 md:px-16 mx-auto"
+          style={{ background: '#EBF5FC', width: "90%" }}
         >
-          Next Wave Technology
-        </p>
-        <h3
-          className="text-2xl md:text-3xl font-black uppercase tracking-tight mb-5"
-          style={{ fontFamily: "'Lato', sans-serif" }}
-        >
-          Interested in {meta.heading}?
-        </h3>
-        <p className="text-gray-400 text-sm mb-8 max-w-md mx-auto">
-          Get in touch for bulk pricing, custom branding, and OEM / ODM enquiries.
-        </p>
-        <Link
-          to="/contact"
-          className="inline-block bg-white text-black text-xs font-bold tracking-widest uppercase px-8 py-3 hover:bg-gray-200 transition-colors duration-200"
-          style={{ fontFamily: "'Montserrat', sans-serif" }}
-        >
-          Contact Us
-        </Link>
+          {/* subtle grid — dark lines on light bg */}
+          <div
+            className="absolute inset-0 pointer-events-none"
+            style={{
+              opacity: 0.05,
+              backgroundImage:
+                "linear-gradient(to right, #0B1929 1px, transparent 1px), linear-gradient(to bottom, #0B1929 1px, transparent 1px)",
+              backgroundSize: "40px 40px",
+            }}
+          />
+          {/* left accent bar */}
+          <div className="absolute top-0 left-0 bottom-0 w-1 pointer-events-none" style={{ background: 'var(--nw-blue)' }} />
+
+          <div className="relative z-10 max-w-2xl mx-auto">
+            <p
+              className="text-xs tracking-[0.3em] uppercase mb-4"
+              style={{ fontFamily: "'Montserrat', sans-serif", color: 'var(--nw-blue)' }}
+            >
+              Let's Grow Together
+            </p>
+            <h2
+              className="text-2xl md:text-4xl font-black mb-4 leading-tight"
+              style={{ fontFamily: "'Lato', sans-serif", color: 'var(--nw-navy)' }}
+            >
+              Interested in {meta.heading}?
+            </h2>
+            <div className="w-12 h-0.5 mx-auto mb-6" style={{ background: 'var(--nw-orange)' }} />
+            <p className="text-gray-600 text-sm mb-10 max-w-xl mx-auto leading-relaxed">
+              Get in touch for bulk pricing, custom branding, and OEM / ODM enquiries on {meta.heading}.
+            </p>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <Link
+                to="/contact"
+                className="inline-block text-white text-xs font-bold tracking-widest uppercase px-8 py-3.5 hover:opacity-90 active:scale-95 transition-all duration-200"
+                style={{ background: 'var(--nw-orange)', fontFamily: "'Montserrat', sans-serif" }}
+              >
+                Contact Us →
+              </Link>
+              <Link
+                to="/"
+                className="inline-block text-xs font-bold tracking-widest uppercase px-8 py-3.5 hover:opacity-90 active:scale-95 transition-all duration-200"
+                style={{ border: '1px solid rgba(27,160,225,0.5)', color: 'var(--nw-blue)', fontFamily: "'Montserrat', sans-serif" }}
+              >
+                View All Products
+              </Link>
+            </div>
+          </div>
+        </div>
       </section>
 
     </main>

@@ -1,36 +1,13 @@
 import React, { useState, useEffect, useRef } from "react";
 import { Link, NavLink } from "react-router-dom";
-import vipinLogo from "../assets/vipin-logo.webp";
+const vipinLogo = "/NextWave.webp";
 
 // ── Icons ─────────────────────────────────────────────────────────────────────
-const FacebookIcon = () => (
-  <svg viewBox="0 0 24 24" fill="currentColor" className="w-3.75 h-3.75">
-    <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" />
-  </svg>
-);
-const XIcon = () => (
-  <svg viewBox="0 0 24 24" fill="currentColor" className="w-3.75 h-3.75">
-    <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.74l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
-  </svg>
-);
 const InstagramIcon = () => (
   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-3.75 h-3.75">
     <rect x="2" y="2" width="20" height="20" rx="5" ry="5" />
     <circle cx="12" cy="12" r="4" />
     <circle cx="17.5" cy="6.5" r="0.8" fill="currentColor" stroke="none" />
-  </svg>
-);
-const LinkedInIcon = () => (
-  <svg viewBox="0 0 24 24" fill="currentColor" className="w-3.75 h-3.75">
-    <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" />
-    <rect x="2" y="9" width="4" height="12" />
-    <circle cx="4" cy="4" r="2" />
-  </svg>
-);
-const YouTubeIcon = () => (
-  <svg viewBox="0 0 24 24" fill="currentColor" className="w-3.75 h-3.75">
-    <path d="M22.54 6.42a2.78 2.78 0 0 0-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46a2.78 2.78 0 0 0-1.95 1.96A29 29 0 0 0 1 12a29 29 0 0 0 .46 5.58A2.78 2.78 0 0 0 3.41 19.6C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 0 0 1.95-1.95A29 29 0 0 0 23 12a29 29 0 0 0-.46-5.58z" />
-    <polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02" fill="white" />
   </svg>
 );
 const PhoneIcon = () => (
@@ -65,15 +42,11 @@ const CloseIcon = () => (
 
 // ── Data ──────────────────────────────────────────────────────────────────────
 const socialLinks = [
-  { label: "Facebook",  href: "#", Icon: FacebookIcon  },
-  { label: "X",         href: "#", Icon: XIcon         },
   { label: "Instagram", href: "#", Icon: InstagramIcon },
-  { label: "LinkedIn",  href: "#", Icon: LinkedInIcon  },
-  { label: "YouTube",   href: "#", Icon: YouTubeIcon   },
 ];
 
 const categories = [
-  "Neckband", "TWS", "Power Bank", "Charger", "Cable", "Smart Watch",
+  "Neckband", "TWS", "Power Bank", "Charger", "Cable", "Smart Band",
 ];
 
 const navLinks = [
@@ -89,7 +62,23 @@ const Header = () => {
   const [mobileOpen,     setMobileOpen]     = useState(false);
   const [catOpen,        setCatOpen]        = useState(false);
   const [mobileCatOpen,  setMobileCatOpen]  = useState(false);
-  const catRef = useRef(null);
+  const catRef    = useRef(null);
+  const headerRef = useRef(null);
+
+  // Keep --header-h CSS variable accurate on resize
+  useEffect(() => {
+    const update = () => {
+      if (headerRef.current) {
+        document.documentElement.style.setProperty(
+          "--header-h",
+          `${headerRef.current.offsetHeight}px`
+        );
+      }
+    };
+    update();
+    window.addEventListener("resize", update);
+    return () => window.removeEventListener("resize", update);
+  }, []);
 
   const close = () => setMobileOpen(false);
 
@@ -116,43 +105,43 @@ const Header = () => {
   }, [mobileOpen]);
 
   const activeLinkClass = ({ isActive }) =>
-    `text-sm font-medium tracking-wide transition-colors duration-200 ${
-      isActive ? "text-black border-b-2 border-black pb-0.5" : "text-gray-600 hover:text-black"
-    }`;
+    isActive
+      ? "text-sm font-medium tracking-wide transition-colors duration-200 text-(--nw-blue) border-b-2 border-(--nw-blue) pb-0.5"
+      : "text-sm font-medium tracking-wide transition-colors duration-200 text-gray-600 hover:text-black";
 
   return (
     <>
       {/* ── Sticky header bar ─────────────────────────────────────────────── */}
-      <header className="sticky top-0 z-40 w-full" style={{ fontFamily: "'Poppins', sans-serif" }}>
+      <header ref={headerRef} className="sticky top-0 z-40 w-full" style={{ fontFamily: "'Poppins', sans-serif" }}>
 
         {/* Top Bar */}
-        <div className="bg-black text-white text-xs py-2 px-5 md:px-10 flex items-center justify-between">
+        <div className="text-xs py-2 px-5 md:px-10 flex items-center justify-between border-b border-gray-200" style={{ background: '#EBF5FC' }}>
           <div className="flex items-center gap-1.5">
-            <span className="text-gray-400 font-light tracking-wide mr-1">Follow us :</span>
+            <span className="text-gray-500 font-light tracking-wide mr-1">Follow us :</span>
             {socialLinks.map(({ label, href, Icon }) => (
               <a
                 key={label}
                 href={href}
                 aria-label={label}
-                className="w-6 h-6 flex items-center justify-center text-gray-300 hover:text-white hover:bg-white/10 transition-colors duration-200"
+                className="w-6 h-6 flex items-center justify-center text-gray-500 hover:text-(--nw-blue) transition-colors duration-200"
               >
                 <Icon />
               </a>
             ))}
           </div>
           <div className="hidden sm:flex items-center gap-4">
-            <a href="tel:+917404458619" className="flex items-center gap-1.5 text-gray-300 hover:text-white transition-colors duration-200 tracking-wide">
+            <a href="tel:+917404458619" className="flex items-center gap-1.5 text-gray-600 hover:text-(--nw-blue) transition-colors duration-200 tracking-wide">
               <PhoneIcon />
               <span>+91 74044 58619</span>
             </a>
-            <span className="text-gray-700">|</span>
-            <a href="mailto:nextwavemobile1@gmail.com" className="flex items-center gap-1.5 text-gray-300 hover:text-white transition-colors duration-200 tracking-wide">
+            <span className="text-gray-300">|</span>
+            <a href="mailto:nextwavemobile1@gmail.com" className="flex items-center gap-1.5 text-gray-600 hover:text-(--nw-blue) transition-colors duration-200 tracking-wide">
               <EmailIcon />
               <span>nextwavemobile1@gmail.com</span>
             </a>
           </div>
           {/* Mobile: phone only */}
-          <a href="tel:+917404458619" className="flex sm:hidden items-center gap-1.5 text-gray-300 hover:text-white transition-colors duration-200">
+          <a href="tel:+917404458619" className="flex sm:hidden items-center gap-1.5 text-gray-600 hover:text-(--nw-blue) transition-colors duration-200">
             <PhoneIcon />
             <span>+91 74044 58619</span>
           </a>
@@ -169,8 +158,10 @@ const Header = () => {
             <img src={vipinLogo} alt="Next Wave Technology" className="h-10 w-auto object-contain" />
           </Link>
 
+          <div className="flex-1" />
+
           {/* Desktop Nav */}
-          <nav className="hidden md:flex items-center gap-7 ml-6">
+          <nav className="hidden md:flex items-center gap-7">
             {navLinks.map(({ label, to, dropdown }) =>
               dropdown ? (
                 <div key={label} className="relative" ref={catRef}>
@@ -190,7 +181,9 @@ const Header = () => {
                           key={cat}
                           to={`/categories/${cat.toLowerCase().replace(/\s+/g, "-")}`}
                           onClick={() => setCatOpen(false)}
-                          className="block px-5 py-2.5 text-sm text-gray-600 hover:bg-black hover:text-white transition-colors duration-150"
+                          className="block px-5 py-2.5 text-sm text-gray-600 transition-colors duration-150"
+                          onMouseEnter={e => { e.currentTarget.style.background = '#EBF5FC'; e.currentTarget.style.color = 'var(--nw-blue)'; }}
+                          onMouseLeave={e => { e.currentTarget.style.background = ''; e.currentTarget.style.color = ''; }}
                         >
                           {cat}
                         </Link>
@@ -206,16 +199,14 @@ const Header = () => {
             )}
           </nav>
 
-          <div className="flex-1" />
-
           {/* Desktop CTA */}
-          <a
-            href="#"
-            className="hidden md:inline-block bg-black text-white text-xs font-semibold tracking-widest uppercase px-6 py-2.5 hover:bg-gray-800 transition-colors duration-200 shrink-0"
-            style={{ fontFamily: "'Montserrat', sans-serif" }}
+          <NavLink
+            to="/contact"
+            className="hidden md:inline-block text-white text-xs font-semibold tracking-widest uppercase px-6 py-2.5 hover:opacity-90 transition-opacity duration-200 shrink-0"
+            style={{ background: 'var(--nw-orange)', fontFamily: "'Montserrat', sans-serif" }}
           >
-            Download Catalogue
-          </a>
+            Contact Us
+          </NavLink>
 
           {/* Hamburger — mobile only */}
           <button
@@ -297,7 +288,7 @@ const Header = () => {
                 onClick={close}
                 className={({ isActive }) =>
                   `block py-4 text-sm font-medium border-b border-gray-100 transition-colors ${
-                    isActive ? "text-black font-semibold" : "text-gray-700 hover:text-black"
+                    isActive ? "text-(--nw-blue) font-semibold" : "text-gray-700 hover:text-black"
                   }`
                 }
               >
@@ -323,13 +314,13 @@ const Header = () => {
             <EmailIcon />
             nextwavemobile1@gmail.com
           </a>
-          <a
-            href="#"
-            className="block w-full bg-black text-white text-xs font-semibold tracking-widest uppercase text-center py-3 mt-2 hover:bg-gray-800 transition-colors duration-200"
-            style={{ fontFamily: "'Montserrat', sans-serif" }}
+          <NavLink
+            to="/contact"
+            className="block w-full text-white text-xs font-semibold tracking-widest uppercase text-center py-3 mt-2 hover:opacity-90 transition-opacity duration-200"
+            style={{ background: 'var(--nw-orange)', fontFamily: "'Montserrat', sans-serif" }}
           >
-            Download Catalogue
-          </a>
+            Contact Us
+          </NavLink>
         </div>
       </div>
     </>
