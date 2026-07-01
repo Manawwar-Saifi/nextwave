@@ -7,8 +7,9 @@ import HowToOrder from "../components/HowToOrder";
 import WhyChooseUs from "../components/WhyChooseUs";
 import ManufacturingBanner from "../components/ManufacturingBanner";
 import CTABanners from "../components/CTABanners";
-import FAQSection from "../components/FAQSection";
 import ClientMarquee from "../components/ClientMarquee";
+import TestimonialsSlider from "../components/TestimonialsSlider";
+import FAQSection from "../components/FAQSection";
 
 const Home = () => (
   <main>
@@ -20,8 +21,9 @@ const Home = () => (
     <FeaturedProducts />
     <HowToOrder />
     <ManufacturingBanner />
-    <FAQSection />
     <ClientMarquee />
+    <TestimonialsSlider />
+    <FAQSection />
   </main>
 );
 

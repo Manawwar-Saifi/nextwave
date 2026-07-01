@@ -1,6 +1,13 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
+import Powerbank from "../../public/category/powerbank.webp";
+import Speaker from "../../public/category/speaker.webp";
+import Band from "../../public/category/smartband.webp";
+import Buds from "../../public/category/Buds 5 pro.webp";
+import EarPiece from "../../public/category/ear-piece.webp";
+import Cable from "../../public/category/cable.webp";
+
 const NeckbandIcon = () => (
   <svg viewBox="0 0 120 100" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="w-24 h-20">
     <path d="M20 30 Q60 10 100 30" strokeWidth="3" />
@@ -87,12 +94,12 @@ const SmartWatchIcon = () => (
 );
 
 export const categories = [
-  { slug: "neckband",    name: "Neckband",    Icon: NeckbandIcon  },
-  { slug: "tws",         name: "TWS",         Icon: TWSIcon       },
-  { slug: "power-bank",  name: "Power Bank",  Icon: PowerBankIcon },
-  { slug: "charger",     name: "Charger",     Icon: ChargerIcon   },
-  { slug: "cable",       name: "Cable",       Icon: CableIcon     },
-  { slug: "smart-watch", name: "Smart Watch", Icon: SmartWatchIcon},
+  { slug: "neckband", name: "Neckband", Icon: NeckbandIcon, image: EarPiece },
+  { slug: "tws", name: "TWS", Icon: TWSIcon, image: Buds },
+  { slug: "power-bank", name: "Power Bank", Icon: PowerBankIcon, image: Powerbank },
+  { slug: "charger", name: "Charger", Icon: ChargerIcon, image: Speaker },
+  { slug: "cable", name: "Cable", Icon: CableIcon, image: Cable },
+  { slug: "smart-band", name: "Smart Band", Icon: SmartWatchIcon, image: Band },
 ];
 
 const CategorySection = () => (
@@ -103,26 +110,37 @@ const CategorySection = () => (
     <div className="max-w-6xl mx-auto">
       <h2
         data-aos="fade-up"
-        className="text-2xl md:text-4xl font-semibold text-black text-center mb-12"
+        className="text-2xl md:text-4xl font-semibold text-black text-center mb-4"
         style={{ fontFamily: "'Lato', sans-serif" }}
       >
         Manufacturing Categories
       </h2>
+      <div className="flex justify-center mb-10">
+        <div className="w-12 h-0.5" style={{ background: 'var(--nw-orange)' }} />
+      </div>
 
       <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4 md:gap-5">
-        {categories.map(({ slug, name, Icon }, i) => (
+        {categories.map(({ slug, name, Icon, image }, i) => (
           <Link
             key={slug}
             to={`/categories/${slug}`}
             data-aos="fade-up"
             data-aos-delay={i * 60}
-            className="group bg-white border border-gray-100 hover:border-black hover:shadow-md transition-all duration-300 flex flex-col items-center pt-6 pb-5 px-3 cursor-pointer"
+            className="group bg-white border border-gray-100 hover:border-(--nw-blue) hover:shadow-md transition-all duration-300 flex flex-col items-center pt-6 pb-5 px-3 cursor-pointer"
           >
-            <div className="h-28 flex items-center justify-center text-gray-700 group-hover:text-black transition-colors duration-300">
-              <Icon />
+            <div className="h-28 w-full flex items-center justify-center overflow-hidden text-gray-700 group-hover:text-black transition-colors duration-300">
+              {image ? (
+                <img
+                  src={image}
+                  alt={name}
+                  className="h-full w-full object-contain group-hover:scale-105 transition-transform duration-300"
+                />
+              ) : (
+                <Icon />
+              )}
             </div>
             <span
-              className="text-sm font-medium text-black underline underline-offset-4 decoration-gray-400 group-hover:decoration-black transition-colors duration-300 text-center"
+              className="text-sm font-medium text-black underline underline-offset-4 decoration-gray-400 group-hover:text-(--nw-blue) group-hover:decoration-(--nw-blue) transition-colors duration-300 text-center mt-1"
               style={{ fontFamily: "'Montserrat', sans-serif" }}
             >
               {name}

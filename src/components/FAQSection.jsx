@@ -95,8 +95,9 @@ const FAQItem = ({ faq, index, open, toggle }) => (
     <button
       onClick={toggle}
       className={`w-full flex items-center justify-between gap-4 text-left px-5 py-4 transition-colors duration-200 ${
-        open ? "bg-black text-white" : "bg-white text-black hover:bg-gray-50"
+        open ? "text-white" : "bg-white text-black hover:bg-gray-50"
       }`}
+      style={open ? { background: 'var(--nw-navy)' } : {}}
       aria-expanded={open}
     >
       <span
@@ -121,7 +122,7 @@ const FAQItem = ({ faq, index, open, toggle }) => (
           <ul className="space-y-1.5 mb-3">
             {faq.list.map((item) => (
               <li key={item} className="flex items-start gap-2 text-sm text-gray-600">
-                <span className="mt-1.5 w-1.5 h-1.5 bg-black rounded-full shrink-0" />
+                <span className="mt-1.5 w-1.5 h-1.5 rounded-full shrink-0" style={{ background: 'var(--nw-blue)' }} />
                 {item}
               </li>
             ))}
@@ -160,11 +161,14 @@ const FAQSection = () => {
             Got Questions?
           </p>
           <h2
-            className="text-3xl md:text-4xl font-black text-black uppercase tracking-tight"
+            className="text-3xl md:text-4xl font-black text-black uppercase tracking-tight mb-4"
             style={{ fontFamily: "'Lato', sans-serif" }}
           >
             Frequently Asked Questions
           </h2>
+          <div className="flex justify-center">
+            <div className="w-12 h-0.5" style={{ background: 'var(--nw-orange)' }} />
+          </div>
         </div>
 
         {/* Accordion */}
@@ -187,8 +191,8 @@ const FAQSection = () => {
           </p>
           <NavLink
             to="/contact"
-            className="inline-block bg-black text-white text-xs font-bold tracking-widest uppercase px-8 py-3.5 hover:bg-gray-800 active:scale-95 transition-all duration-200"
-            style={{ fontFamily: "'Montserrat', sans-serif" }}
+            className="inline-block text-white text-xs font-bold tracking-widest uppercase px-8 py-3.5 hover:opacity-90 active:scale-95 transition-all duration-200"
+            style={{ background: 'var(--nw-orange)', fontFamily: "'Montserrat', sans-serif" }}
           >
             Contact Us
           </NavLink>

@@ -42,16 +42,16 @@ const sections = [
 const Terms = () => (
   <main style={{ fontFamily: "'Poppins', sans-serif" }}>
 
-    {/* Hero */}
-    <section className="bg-black text-white py-20 px-5 text-center">
-      <p className="text-xs tracking-[0.25em] uppercase text-gray-500 mb-3">Legal</p>
+    {/* Breadcrumb */}
+    <section className="py-5 px-5 text-center border-b border-gray-200" style={{ background: '#EBF5FC' }}>
+      <p className="text-xs tracking-[0.25em] uppercase mb-2" style={{ color: 'var(--nw-blue)' }}>Legal</p>
       <h1
-        className="text-4xl md:text-5xl font-bold mb-4"
-        style={{ fontFamily: "'Lato', sans-serif" }}
+        className="text-2xl md:text-3xl font-bold mb-1"
+        style={{ fontFamily: "'Lato', sans-serif", color: 'var(--nw-navy)' }}
       >
         Terms & Conditions
       </h1>
-      <p className="text-gray-400 text-sm">Effective Date: January 1, 2024</p>
+      <p className="text-gray-500 text-xs">Effective Date: January 1, 2024</p>
     </section>
 
     {/* Content */}
@@ -80,11 +80,11 @@ const Terms = () => (
         <div className="mt-12 pt-8 border-t border-gray-100">
           <p className="text-xs text-gray-400">
             For any questions regarding these Terms & Conditions, contact us at{" "}
-            <a href="mailto:nextwavemobile1@gmail.com" className="text-black underline">
+            <a href="mailto:nextwavemobile1@gmail.com" style={{ color: 'var(--nw-blue)' }} className="underline">
               nextwavemobile1@gmail.com
             </a>{" "}
             or call{" "}
-            <a href="tel:+917404458619" className="text-black underline">
+            <a href="tel:+917404458619" style={{ color: 'var(--nw-blue)' }} className="underline">
               +91 74044 58619
             </a>.
           </p>

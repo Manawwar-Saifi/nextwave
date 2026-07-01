@@ -1,9 +1,16 @@
 @import "tailwindcss";
 
+:root {
+  --nw-orange:   #E8622B;
+  --nw-blue:     #1BA0E1;
+  --nw-blue-dk:  #1565B7;
+  --nw-navy:     #0B1929;
+  --nw-navy-dk:  #060E18;
+}
 
 *{
   box-sizing: border-box;
-  
+
 }
 body{
   overflow-x: hidden;
@@ -41,26 +48,45 @@ body{
   --swiper-pagination-bottom: 28px;
 }
 .hero-swiper .swiper-pagination {
-  text-align: left;
-  padding-left: 1.5rem;
+  text-align: center;
 }
-@media (min-width: 768px) {
-  .hero-swiper .swiper-pagination {
-    padding-left: 4rem;
-  }
+.hero-swiper .swiper-pagination-bullet {
+  background: var(--nw-navy) !important;
+  opacity: 0.25;
+  width: 8px;
+  height: 8px;
+}
+.hero-swiper .swiper-pagination-bullet-active {
+  background: var(--nw-orange) !important;
+  opacity: 1;
+  width: 24px;
+  border-radius: 4px;
 }
 
-/* Category section — scoped black bullets */
+/* Category section — scoped brand-blue bullets */
 .category-swiper .swiper-pagination-bullet {
-  background: #000000 !important;
-  opacity: 0.3;
+  background: var(--nw-blue) !important;
+  opacity: 0.35;
 }
 .category-swiper .swiper-pagination-bullet-active {
-  background: #000000 !important;
+  background: var(--nw-blue) !important;
   opacity: 1;
+}
+
+/* Testimonials swiper — orange bullets on navy */
+.testimonials-swiper .swiper-pagination-bullet {
+  background: var(--nw-orange) !important;
+  opacity: 0.4;
+}
+.testimonials-swiper .swiper-pagination-bullet-active {
+  background: var(--nw-orange) !important;
+  opacity: 1;
+  width: 20px;
+  border-radius: 4px;
 }
 
 /* Marquee */
 .marquee-track {
   will-change: transform;
 }
+

@@ -74,11 +74,14 @@ const WhyChooseUs = () => (
       <h2
         data-aos="fade-up"
         data-aos-delay="80"
-        className="text-3xl md:text-4xl font-black text-black text-center uppercase tracking-tight mb-12"
+        className="text-3xl md:text-4xl font-black text-black text-center uppercase tracking-tight mb-4"
         style={{ fontFamily: "'Lato', sans-serif" }}
       >
         Why Choose Us
       </h2>
+      <div className="flex justify-center mb-10">
+        <div className="w-12 h-0.5" style={{ background: 'var(--nw-orange)' }} />
+      </div>
 
       <div className="grid grid-cols-2 md:grid-cols-4 gap-5">
         {cards.map(({ Icon, title, description }, i) => (
@@ -86,9 +89,9 @@ const WhyChooseUs = () => (
             key={title}
             data-aos="fade-up"
             data-aos-delay={i * 100}
-            className="border border-gray-200 p-6 flex flex-col items-start gap-4 hover:border-black transition-colors duration-300 group"
+            className="border border-gray-200 p-6 flex flex-col items-start gap-4 hover:border-(--nw-blue) transition-colors duration-300 group"
           >
-            <div className="text-black group-hover:scale-110 transition-transform duration-300">
+            <div className="text-gray-700 group-hover:text-(--nw-blue) group-hover:scale-110 transition-all duration-300">
               <Icon />
             </div>
             <h3

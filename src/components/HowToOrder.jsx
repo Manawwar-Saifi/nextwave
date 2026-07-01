@@ -70,17 +70,20 @@ const HowToOrder = () => (
           Simple Process
         </p>
         <h2
-          className="text-3xl md:text-4xl font-black text-black uppercase tracking-tight"
+          className="text-3xl md:text-4xl font-black text-black uppercase tracking-tight mb-4"
           style={{ fontFamily: "'Lato', sans-serif" }}
         >
           How to Order
         </h2>
+        <div className="flex justify-center">
+          <div className="w-12 h-0.5" style={{ background: 'var(--nw-orange)' }} />
+        </div>
       </div>
 
       {/* Steps */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-0 relative">
         {/* Connector line — desktop only */}
-        <div className="hidden lg:block absolute top-10 left-[12.5%] right-[12.5%] h-px bg-gray-200 z-0" />
+        <div className="hidden lg:block absolute top-10 left-[12.5%] right-[12.5%] h-px z-0" style={{ background: 'rgba(27,160,225,0.2)' }} />
 
         {steps.map(({ number, title, description, icon }, i) => (
           <div
@@ -89,8 +92,9 @@ const HowToOrder = () => (
             data-aos-delay={i * 100}
             className="relative z-10 flex flex-col items-center text-center px-6 py-8 group"
           >
-            {/* Icon circle */}
-            <div className="w-20 h-20 bg-black text-white flex items-center justify-center mb-5 group-hover:bg-gray-800 transition-colors duration-300">
+            {/* Icon box */}
+            <div className="w-20 h-20 flex items-center justify-center mb-5 transition-all duration-300 group-hover:scale-105"
+              style={{ background: '#EBF5FC', color: 'var(--nw-blue)', border: '1px solid rgba(27,160,225,0.18)' }}>
               {icon}
             </div>
 
@@ -122,8 +126,8 @@ const HowToOrder = () => (
       <div className="mt-12 text-center" data-aos="fade-up">
         <NavLink
           to="/contact"
-          className="inline-block bg-black text-white text-xs font-bold tracking-widest uppercase px-8 py-3.5 hover:bg-gray-800 active:scale-95 transition-all duration-200"
-          style={{ fontFamily: "'Montserrat', sans-serif" }}
+          className="inline-block text-white text-xs font-bold tracking-widest uppercase px-8 py-3.5 hover:opacity-90 active:scale-95 transition-all duration-200"
+          style={{ background: 'var(--nw-orange)', fontFamily: "'Montserrat', sans-serif" }}
         >
           Start Your Order
         </NavLink>
