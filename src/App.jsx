@@ -14,7 +14,8 @@ const About        = lazy(() => import("./pages/About"));
 const Contact      = lazy(() => import("./pages/Contact"));
 const PrivacyPolicy = lazy(() => import("./pages/PrivacyPolicy"));
 const Terms        = lazy(() => import("./pages/Terms"));
-const CategoryPage = lazy(() => import("./pages/CategoryPage"));
+const CategoryPage    = lazy(() => import("./pages/CategoryPage"));
+const ProductDetail   = lazy(() => import("./pages/ProductDetail"));
 const NotFound     = lazy(() => import("./pages/NotFound"));
 
 // Created once — outside the component so re-renders don't rebuild the router
@@ -27,6 +28,7 @@ const router = createBrowserRouter(
       <Route path="privacy-policy" element={<PrivacyPolicy />} />
       <Route path="terms" element={<Terms />} />
       <Route path="categories/:slug" element={<CategoryPage />} />
+      <Route path="categories/:slug/:model" element={<ProductDetail />} />
       <Route path="*" element={<NotFound />} />
     </Route>,
   ),

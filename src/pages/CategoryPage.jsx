@@ -5,7 +5,6 @@ import { Pagination, Autoplay } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/pagination";
 import { productData } from "../data/products";
-import { delay } from "framer-motion";
 
 /* ── Badge icons ─────────────────────────────────────────────────────────── */
 const HeadphoneIcon = () => (
@@ -42,9 +41,10 @@ const BADGE_ICONS = {
 };
 
 /* ── Product Card ─────────────────────────────────────────────────────────── */
-const ProductCard = ({ model, name, spec, image, categoryHeading, badgeIcon }) => (
-  <div
-    className="bg-white border border-gray-100 hover:border-gray-300 hover:shadow-md transition-all duration-300 cursor-pointer group flex flex-col"
+const ProductCard = ({ model, name, spec, image, categoryHeading, badgeIcon, slug }) => (
+  <Link
+    to={`/categories/${slug}/${model}`}
+    className="bg-white border border-gray-100 hover:border-gray-300 hover:shadow-md transition-all duration-300 group flex flex-col"
     style={{ fontFamily: "'Poppins', sans-serif" }}
   >
     {/* Image area */}
@@ -72,14 +72,14 @@ const ProductCard = ({ model, name, spec, image, categoryHeading, badgeIcon }) =
         {model} – {name}
       </p>
 
-      <button
-        className="w-full text-white text-xs font-bold tracking-widest uppercase py-2.5 hover:opacity-90 active:scale-95 transition-all duration-200"
+      <span
+        className="w-full text-white text-xs font-bold tracking-widest uppercase py-2.5 text-center block hover:opacity-90 transition-all duration-200"
         style={{ background: 'var(--nw-orange)', fontFamily: "'Montserrat', sans-serif" }}
       >
-        VIEW MORE
-      </button>
+        VIEW DETAILS
+      </span>
     </div>
-  </div>
+  </Link>
 );
 
 /* ── Page ─────────────────────────────────────────────────────────────────── */
@@ -196,7 +196,7 @@ const CategoryPage = () => {
           </div>
 
           <Swiper
-            modules={[Pagination, Autoplay]}
+            modules={[Pagination]}
             pagination={{ clickable: true }}
             slidesPerView={2}
             spaceBetween={16}
@@ -213,6 +213,7 @@ const CategoryPage = () => {
               <SwiperSlide key={product.model}>
                 <ProductCard
                   {...product}
+                  slug={slug}
                   categoryHeading={meta.heading}
                   badgeIcon={meta.badgeIcon}
                 />

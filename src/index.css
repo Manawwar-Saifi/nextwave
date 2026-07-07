@@ -12,8 +12,9 @@
   box-sizing: border-box;
 
 }
-body{
+html, body {
   overflow-x: hidden;
+  max-width: 100%;
 }
 
 /* Swiper navigation & pagination overrides */
