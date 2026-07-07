@@ -60,8 +60,8 @@ const Preloader = ({ onComplete }) => {
   return (
     <div
       ref={overlayRef}
-      className="fixed inset-0 z-9999 flex flex-col items-center justify-center"
-      style={{ background: '#EBF5FC', fontFamily: "'Montserrat', sans-serif" }}
+      className="fixed inset-0 flex flex-col items-center justify-center"
+      style={{ background: '#EBF5FC', fontFamily: "'Montserrat', sans-serif", zIndex: 9999, width: '100%', height: '100dvh' }}
     >
       <div ref={logoRef} className="flex flex-col items-center gap-8 opacity-0">
         {/* Logo */}

@@ -41,7 +41,7 @@ const ICONS = {
 };
 
 /* ── Product Card ─────────────────────────────────────────────────────────── */
-const ProductCard = ({ model, name, spec, image, categoryHeading, badgeIcon }) => (
+const ProductCard = ({ model, name, spec, image, categoryHeading, badgeIcon, slug }) => (
   <div
     className="group relative flex flex-col h-full bg-white transition-all duration-300 hover:-translate-y-1 hover:z-10"
     style={{
@@ -93,11 +93,11 @@ const ProductCard = ({ model, name, spec, image, categoryHeading, badgeIcon }) =
 
       {/* CTA */}
       <Link
-        to={`/categories/${Object.keys(productData).find(k => productData[k].heading === categoryHeading)}`}
+        to={`/categories/${slug}/${model}`}
         className="flex items-center justify-center gap-1.5 w-full text-white text-[10px] font-bold tracking-widest uppercase py-2 text-center hover:opacity-90 active:scale-95 transition-all duration-200"
         style={{ background: 'var(--nw-orange)', fontFamily: "'Montserrat', sans-serif" }}
       >
-        View More
+        View Details
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="w-3 h-3">
           <path d="M5 12h14M12 5l7 7-7 7" />
         </svg>
@@ -151,6 +151,7 @@ const CategoryBlock = ({ slug }) => {
           <SwiperSlide key={product.model} style={{ height: 'auto' }}>
             <ProductCard
               {...product}
+              slug={slug}
               categoryHeading={cat.heading}
               badgeIcon={cat.badgeIcon}
             />
